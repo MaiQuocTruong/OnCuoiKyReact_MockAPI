@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView, TextInput } from 'react-native';
 
 const MedicineScreen = ({ route }) => {
   const [medicines, setMedicines] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
   const { username } = route.params;
@@ -16,8 +15,6 @@ const MedicineScreen = ({ route }) => {
         setMedicines(data);
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -41,49 +38,46 @@ const MedicineScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}> 
-      <ScrollView style={{ width: "100%", height: 500 }}>
-      <View style={styles.headerContainer}>
-          <View style={styles.header}>
-            <View style={[styles.searchBox, searchFocused && styles.inputContainerFocused]}>
-              <Image source={require('../assets/anh01.png')} style={styles.searchIcon} />
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Search here..."
-                value={searchQuery}
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-                onChangeText={setSearchQuery}
-              />
+      <View style={styles.container}>
+        <ScrollView style={{ width: "100%", height: 500 }}>
+          <View style={styles.headerContainer}>
+            <View style={styles.header}>
+              <View style={[styles.searchBox, searchFocused && styles.inputContainerFocused]}>
+                <Image source={require('../assets/anh01.png')} style={styles.searchIcon} />
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search here..."
+                  value={searchQuery}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setSearchFocused(false)}
+                  onChangeText={setSearchQuery}
+                />
+              </View>
+              <View style={styles.logoBackground}>
+                <Image source={require('../assets/anh02.png')} style={styles.logoicon} />
+              </View>
             </View>
-            <View style={styles.logoBackground}>
-              <Image source={require('../assets/anh02.png')} style={styles.logoicon} />
+          </View>
+
+          {/* Banner Component */}
+          <View style={styles.bannerContainer}>
+            <Image source={require('../assets/anh03.png')} style={styles.banner} />
+            <View style={styles.bannerContent}>
+              <Text style={styles.bannerTitle}>Free Consultation</Text>
+              <Text style={styles.bannerText}>Feel free to consult with one of our experienced {'\n'} doctors for personalized advice.</Text>
             </View>
           </View>
-        </View>
-        
-        {/* Banner Component */}
-        <View style={styles.bannerContainer}>
-          <Image source={require('../assets/anh03.png')} style={styles.banner} />
-          <View style={styles.bannerContent}>
-            <Text style={styles.bannerTitle}>Free Consultation</Text>
-            <Text style={styles.bannerText}>Feel free to consult with one of our experienced {'\n'} doctors for personalized advice.</Text>
-          </View>
-        </View>
 
-        <View style={styles.titleSection}>
-          <View style={styles.subtitleContainer}>
-            <Text style={styles.greeting}>Hello, {username}!</Text>
-            <Text style={styles.subtitle}>We have some additional suggestions for you.</Text>
+          <View style={styles.titleSection}>
+            <View style={styles.subtitleContainer}>
+              <Text style={styles.greeting}>Hello, {username}!</Text>
+              <Text style={styles.subtitle}>We have some additional suggestions for you.</Text>
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.seeAll}>See All ➔</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity>
-            <Text style={styles.seeAll}>See All ➔</Text>
-          </TouchableOpacity>
-        </View>
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#007BFF" />
-        ) : (
           <View style={{ flex: 1 }}>
             <FlatList
               data={medicines}
@@ -93,40 +87,34 @@ const MedicineScreen = ({ route }) => {
               contentContainerStyle={styles.flatListContent}
             />
           </View>
-        )}
 
           <View style={styles.bottomNav}>
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh09.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>Home</Text>
+              <Image source={require('../assets/anh09.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>Home</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh10.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>Explore</Text>
+              <Image source={require('../assets/anh10.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>Explore</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh11.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>My Cart</Text>
+              <Image source={require('../assets/anh11.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>My Cart</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh12.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>Hospital</Text>
+              <Image source={require('../assets/anh12.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>Hospital</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh13.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>Support</Text>
+              <Image source={require('../assets/anh13.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>Support</Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.navItem}>
-                <Image source={require('../assets/anh14.png')} style={styles.navicon}/>
-                <Text style={styles.navLabel}>Profile</Text>
+              <Image source={require('../assets/anh14.png')} style={styles.navicon} />
+              <Text style={styles.navLabel}>Profile</Text>
             </TouchableOpacity>
-      </View>
-      </ScrollView>  
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

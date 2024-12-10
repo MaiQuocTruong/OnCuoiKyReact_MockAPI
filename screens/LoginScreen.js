@@ -81,12 +81,16 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgetPass')}>
         <Text style={styles.forgotPassword}>Forgot password?</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.continueButton} onPress={handleLogin}>
         <Text style={styles.continueText}>Continue</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+        <Text style={styles.signUp}>Create an account?</Text>
       </TouchableOpacity>
 
       <View style={styles.orContainer}>
@@ -172,10 +176,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginBottom: 20,
   },
+  signUp: {
+    marginTop: 10,
+    color: 'grey',
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
   continueButton: {
     backgroundColor: '#0ad4fa',
     borderRadius: 10,
-    paddingVertical: 15,
+    paddingVertical: 14,
     alignItems: 'center',
   },
   continueText: {
@@ -186,7 +196,7 @@ const styles = StyleSheet.create({
   orContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
   },
   line: {
     flex: 1,
